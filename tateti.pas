@@ -66,6 +66,7 @@ begin
     TextBackground(colorReset);
 end;
 
+//dibuja las 4 lineas del tablero (anashe)
 procedure dibujarTabla();
 begin
     lineaVertical(6,1,17,colorTabla);
@@ -74,6 +75,7 @@ begin
     lineaHorizontal(1,12,17,colorTabla);
 end;
 
+//dibuja una X
 procedure dibujarX(x,y:integer);
 begin
     TextBackground(xColor);
@@ -87,6 +89,7 @@ begin
     TextBackground(colorReset);
 end;
 
+//dibuja una O
 procedure dibujarO(x,y:integer);
 begin
     TextBackground(oColor);
@@ -99,6 +102,7 @@ begin
     TextBackground(colorReset);
 end;
 
+//pinta un area
 procedure pintarArea(x,y,tamX,tamY,color:integer);
 var i:integer;
 begin
@@ -115,6 +119,7 @@ begin // inicializa todo el tablero con ceros
     dibujarTabla();
 end;
 
+//pasa la pos de la matriz y la extrapola al gráfico y lo dibuja a la x o la O
 procedure pintarCasilla(j,x,y:integer);
 var posX,posY:integer;
 begin
@@ -150,6 +155,36 @@ begin
     pintarArea(posX,posY,5,5,color);
 end;
 
+
+
+
+Procedure quienVaAhora(turno: boolean);
+var 
+    posX,posY: integer;
+
+begin
+
+    //desde aqui puedo variar la posicionS
+    posX := 25;
+    posY := 3;
+
+    gotoxy(posx,posy);
+
+    write('ahora le toca a: ');
+
+    if(turno) then begin
+        pintarArea(posx,posy+2,3,3,colorReset);
+        dibujarX(posx,posy+2);
+    end
+    else begin
+        pintarArea(posx,posy+2,3,3,colorReset);
+        dibujarO(posx,posy+2);        
+    end;
+    
+    
+end;
+
+
 Procedure seleccionarCasilla(Var t:tablero; Var x,y:integer; turno:boolean);
 
 Var valido: boolean;
@@ -159,6 +194,10 @@ Begin
   // en x,y viene posicionado el puntero y retorna ahi mismo la casilla elegida
   gotoxy(1,20);
   write('Presionar "y" para seleccionar la casilla');
+
+    //codigo que dice quien va ahora:
+    quienVaAhora(turno);
+
   If (t[x][y]<>0)Then
       Begin
         // si no es una casilla disponible valido queda en false
@@ -207,6 +246,9 @@ Begin
       End;
     pintarCasilla2(xAnt,yAnt,colorReset);
     pintarCasilla(t[xAnt][yAnt],xAnt,yAnt);
+
+    
+
   Until ((c='y') And valido);
   // enter para elegir
   If (turno)Then
@@ -214,7 +256,7 @@ Begin
       // jugador 1
       t[x][y] := 1;
       pintarCasilla(1,x,y);
-      readkey;
+      //readkey;//borro este?
     End
   Else
     Begin
@@ -223,6 +265,7 @@ Begin
         pintarCasilla(2,x,y);
     End;
 End;
+
 
 Function comprobarC(t:tablero;var x1,y1,x2,y2: integer): integer;
 Var 
@@ -392,6 +435,21 @@ begin
         lineaDiagonal(posX,posY,posX2-posX,colorMarca,false);
 end;
 
+
+function jugadorQueGano(jugador: integer): string;
+var str:string;
+begin
+
+    case jugador of
+        1: begin str := 'X'; TextColor(xColor); end;
+        2: begin str := 'O'; TextColor(oColor); end;
+    end;
+
+    jugadorQueGano := str;
+
+end;
+
+
 var
     t:tablero; fin,turno:boolean; x,y,x1,x2,y1,y2,ganador:integer; c:char;
 begin
@@ -417,7 +475,7 @@ begin
         ClrScr;
         gotoxy(2,2);
         if(ganador=1) or (ganador=2)then
-            write('Gano el jugador: '+IntToStr(ganador))
+            write('Gano el jugador: '+jugadorQueGano(ganador))
         else
             write('No hay ganadores :P');
         gotoxy(2,5);
