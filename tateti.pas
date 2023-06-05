@@ -482,6 +482,8 @@ begin
         write('presione cualquier tecla para volver a jugar');
         gotoxy(4,6);
         write('(o presione "q" para cerrar)');
+        while(KeyPressed)do
+            readkey;
         c:=readkey();
     until(c='q');
 end.
