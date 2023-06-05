@@ -173,12 +173,12 @@ begin
     write('ahora le toca a: ');
 
     if(turno) then begin
-        pintarArea(posx,posy+2,3,3,colorReset);
-        dibujarX(posx,posy+2);
+        pintarArea(posx+5,posy+2,3,3,colorReset);
+        dibujarX(posx+5,posy+2);
     end
     else begin
-        pintarArea(posx,posy+2,3,3,colorReset);
-        dibujarO(posx,posy+2);        
+        pintarArea(posx+5,posy+2,3,3,colorReset);
+        dibujarO(posx+5,posy+2);        
     end;
     
     
