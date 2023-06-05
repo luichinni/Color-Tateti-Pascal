@@ -244,11 +244,10 @@ Begin
         pintarCasilla2(x,y,hoverColor);
         // poner casilla de color normal indicador y limpiar anterior
       End;
-    pintarCasilla2(xAnt,yAnt,colorReset);
-    pintarCasilla(t[xAnt][yAnt],xAnt,yAnt);
-
-    
-
+    if not((x=xAnt) and (y=yAnt))then begin
+        pintarCasilla2(xAnt,yAnt,colorReset);
+        pintarCasilla(t[xAnt][yAnt],xAnt,yAnt);
+    end;
   Until ((c='y') And valido);
   // enter para elegir
   If (turno)Then
