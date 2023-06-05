@@ -192,9 +192,6 @@ Var valido: boolean;
   xAnt,yAnt:integer;
 Begin
   // en x,y viene posicionado el puntero y retorna ahi mismo la casilla elegida
-  gotoxy(1,20);
-  write('Presionar "y" para seleccionar la casilla');
-
     //codigo que dice quien va ahora:
     quienVaAhora(turno);
 
@@ -452,6 +449,10 @@ begin
     repeat
         ClrScr;
         inicializarTablero(t);
+        gotoxy(1,20);
+        write('Desplazamiento con "w", "a", "s" y "d"');
+        gotoxy(1,21);
+        write('Presionar "y" para seleccionar la casilla');
         x:=1; y:=1;
         fin:=false;
         turno:=true;
