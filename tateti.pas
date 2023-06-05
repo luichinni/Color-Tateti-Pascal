@@ -436,18 +436,14 @@ begin
 end;
 
 
-function jugadorQueGano(jugador: integer): string;
-var str:string;
-begin
-
-    case jugador of
-        1: begin str := 'X'; TextColor(xColor); end;
-        2: begin str := 'O'; TextColor(oColor); end;
-    end;
-
-    jugadorQueGano := str;
-
-end;
+procedure jugadorQueGano(jugador: integer);
+Begin
+  gotoxy(WhereX+1,WhereY-1);
+  Case jugador Of 
+    1:Begin dibujarX(WhereX,WhereY);TextColor(xColor);End;
+    2:Begin dibujarO(WhereX,WhereY);TextColor(oColor);End;
+  End;
+End;
 
 
 var
@@ -474,9 +470,14 @@ begin
         delay(1000);
         ClrScr;
         gotoxy(2,2);
-        if(ganador=1) or (ganador=2)then
-            write('Gano el jugador: '+jugadorQueGano(ganador))
-        else
+        If (ganador=1) Or (ganador=2)Then begin
+            case ganador of 
+                1: TextColor(xColor);
+                2: TextColor(oColor);
+            end;
+            write('Gano el jugador: ');
+            jugadorQueGano(ganador)
+        end Else
             write('No hay ganadores :P');
         gotoxy(2,5);
         write('presione cualquier tecla para volver a jugar');
